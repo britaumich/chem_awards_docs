@@ -240,7 +240,7 @@ $sqlp = "SELECT DISTINCT type FROM awards_descr";
        while ($typelist = mysqli_fetch_array($resultp, MYSQLI_BOTH))
         {
            echo "<option";
-           if ($typelist[type] == $type) { echo " selected"; }
+           if ($typelist['type'] == $type) { echo " selected"; }
            echo " value=$typelist[type]>$typelist[type]</option>";
         }
     echo "</select>";

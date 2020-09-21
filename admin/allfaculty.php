@@ -46,7 +46,7 @@ echo "Rank: <select name='Rank'>";
 if (mysqli_num_rows($resultrank) != 0) {
      while ( $ranks = mysqli_fetch_array($resultrank, MYSQLI_BOTH) ) {
            echo "<option";
-           if ($ranks[id] == $rank) { echo " selected"; }
+           if ($ranks['id'] == $rank) { echo " selected"; }
            echo " value=$ranks[id]>$ranks[rank]</option>";
      }
      echo "</select><br>";
