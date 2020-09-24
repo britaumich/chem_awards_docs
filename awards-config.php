@@ -1,8 +1,8 @@
 <?php
 
 $abs = __DIR__;
-define('BASE_PATH', str_replace('/website/docs', '', $abs));
-define('DEV_CONF', BASE_PATH.'/conf/dev_conf.php');
+define('BASE_PATH', str_replace('/docs', '', $abs));
+define('DEV_CONF', BASE_PATH.'/support/dev_conf.php');
 require_once('noinject.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . '/library/HTMLPurifier.auto.php');
 $purifier = new HTMLPurifier();
