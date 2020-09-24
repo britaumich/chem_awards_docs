@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.php');
+require_once('../awards-config.php');
 require_once('nav.php');
 if (isset($_REQUEST['id']) AND (is_numeric($_REQUEST['id']))) {
        $id = $purifier->purify($_REQUEST['id']);

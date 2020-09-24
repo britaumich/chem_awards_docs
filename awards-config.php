@@ -3,8 +3,9 @@
 $abs = __DIR__;
 define('BASE_PATH', str_replace('/docs', '', $abs));
 define('DEV_CONF', BASE_PATH.'/support/dev_conf.php');
+require_once(BASE_PATH.'/support/creds.php');
 require_once('noinject.php');
-require_once($_SERVER["DOCUMENT_ROOT"] . '/library/HTMLPurifier.auto.php');
+require_once('library/HTMLPurifier.auto.php');
 $purifier = new HTMLPurifier();
 global $purifier;
 
@@ -20,46 +21,17 @@ $committee_email = "brita@umich.edu";
 $uploaddir = '/home/appdevch/upload/awards-files/';
 global $uploaddir;
 
-// MySQL 5.7 default settings forbid to select a colum that is not in the
-// group by. As an immediate solution
-// we can remove this constraint in the current MySQL session.
-/*
-$stmt = prepare('SELECT @@SESSION.sql_mode');
-$res = $stmt->execute($conn) or die($stmt->error);
-$row = mysqli_fetch_row($res);
-$sql_mode_current =  array_shift($row);
-//echo "sql_mode_current: ";
-//echo $sql_mode_current;
- // remove ONLY_FULL_GROUP_BY from the list (select distinc(id) .... order by created doesn't work othervize)
-  $sql_mode_altered = implode(',', array_diff(explode(',', $sql_mode_current), array('ONLY_FULL_GROUP_BY')));
- // remove STRICT_TRANS_TABLES from the list (to make '0000-00-00' possible to insert into date fields)
+//connect to the database
+ini_set('display_errors', 'On');
+$conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
+mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-  $sql_mode_altered = implode(',', array_diff(explode(',', $sql_mode_altered), array('STRICT_TRANS_TABLES')));
-//echo "sql_mode_current: ";
-//echo $sql_mode_altered;
-   if ($sql_mode_altered != $sql_mode_current)
-  {
-    $stmt = prepare("SET SESSION sql_mode='".$sql_mode_altered."'");
-    $stmt->execute($conn) or die($stmt->error);
-  }
-  */
-////
-/*
-function check_input($conn, $data)
-{
-    $data = mysqli_real_escape_string($conn, $data);
-//    $data = trim($data);
-//    $data = stripslashes($data);
-//    $data = htmlspecialchars($data);
-    return $data;
-}
-*/
+
 $other_admins = array('rsmoke', 'brita');
 function is_admin($uniqname)
 {
         global $other_admins;
-//        return array_search($_SERVER['REMOTE_USER'], $other_admins) !== FALSE;
-    //    return array_search($_SERVER['REDIRECT_REMOTE_USER'], $other_admins) !== FALSE;
         return array_search($uniqname, $other_admins) !== FALSE;
 }
 if(file_exists(DEV_CONF)){

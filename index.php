@@ -17,7 +17,7 @@
 <?php
 //echo ($_SERVER["DOCUMENT_ROOT"]);
 //require_once($_SERVER["DOCUMENT_ROOT"] . '../support/awards_dbConnect.inc');
-include($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.php');
+include('awards-config.php');
 
 
 //$uniqname1 = $_SERVER['REMOTE_USER'];
