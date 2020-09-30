@@ -3,7 +3,7 @@
 $abs = __DIR__;
 define('BASE_PATH', str_replace('/docs', '', $abs));
 define('DEV_CONF', BASE_PATH.'/support/dev_conf.php');
-require_once(BASE_PATH.'/support/creds.php');
+//require_once(BASE_PATH.'/support/creds.php');
 require_once('noinject.php');
 require_once('library/HTMLPurifier.auto.php');
 $purifier = new HTMLPurifier();
@@ -23,6 +23,12 @@ global $uploaddir;
 
 //connect to the database
 ini_set('display_errors', 'On');
+//use environment variables 
+$server = getenv('MYSQL_HOST');
+$user = getenv('MYSQL_USER');
+$pass = getenv('MYSQL_PASSWORD');
+$database = getenv('MYSQL_DATABASE');
+
 $conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
 mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
